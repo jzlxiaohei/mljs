@@ -1,0 +1,54 @@
+<html>
+	<head>
+	
+		<style>
+			#test{
+				width:200px;
+				height:200px;
+				background-color:red;
+				-webkit-transition:left 1s,  top 1s, background-color 1s, -webkit-transform 1s;
+				transition:left 1s, top 1s, background-color 1s, transform 1s;
+			}
+		</style>
+		<script src='logisticReg.js'></script>
+		<script>
+		
+			var n_epochs = 500;
+			var train_N=6
+				,test_N=2
+				,n_in=6
+				,n_out=2;
+				
+			var train_X=[
+				[1,1,1,0,0,0],
+				[1,0,1,0,0,0],
+				[1,1,1,0,0,0],
+				[0,0,1,1,1,0],
+				[0,0,1,1,0,0],
+				[0,0,1,1,1,0]
+			]
+			
+			var train_Y=[
+				[1,0],
+				[1,0],
+				[1,0],
+				[0,1],
+				[0,1],
+				[0,1]
+			]
+			
+			var logReg = new LogisticRegression(train_N,n_in,n_out);
+			for(var i=0;i<train_N;i++){
+				logReg.train(train_X[i],train_Y[i]);
+			}
+			console.log(logReg.W);
+			console.log(logReg.b);
+		</script>
+	</head>
+	<body>
+		<div id="test">
+		
+		</div>
+
+	</body>
+</html>
