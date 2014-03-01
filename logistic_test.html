@@ -2,18 +2,11 @@
 	<head>
 	
 		<style>
-			#test{
-				width:200px;
-				height:200px;
-				background-color:red;
-				-webkit-transition:left 1s,  top 1s, background-color 1s, -webkit-transform 1s;
-				transition:left 1s, top 1s, background-color 1s, transform 1s;
-			}
 		</style>
 		<script src='logisticReg.js'></script>
 		<script>
 		
-			var n_epochs = 500;
+			var n_epochs = 5000;
 			var train_N=6
 				,test_N=2
 				,n_in=6
@@ -38,11 +31,22 @@
 			]
 			
 			var logReg = new LogisticRegression(train_N,n_in,n_out);
-			for(var i=0;i<train_N;i++){
-				logReg.train(train_X[i],train_Y[i]);
+			for(var epoch=0;epoch<n_epochs;epoch++){
+				for(var i=0;i<train_N;i++){
+					logReg.train(train_X[i],train_Y[i]);
+				}
 			}
 			console.log(logReg.W);
 			console.log(logReg.b);
+			
+			var testX = [
+				[1,0,1,0,0,0],
+				[0,0,1,1,1,0]
+			]
+			for(var i =0;i<testX.length;i++)
+			{
+				console.log(logReg.predict(testX[i]));
+			}
 		</script>
 	</head>
 	<body>
