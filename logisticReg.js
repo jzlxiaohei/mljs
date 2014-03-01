@@ -1,5 +1,7 @@
 +function(exports,undefined){
-
+	/*
+	* w[n_out][n_in] * x[n_in] +b = y[n_out];		
+	*/
 	var makeArray;
 	if(typeof ArrayBuffer === 'undefined') {
 		makeArray = function(n){
@@ -30,10 +32,10 @@
 	}
 		
 	fn.set = function(x,y,val){
-		this.arr[x+y*this.row] = val;
+		this.arr[y+x*this.row] = val;
 	}
 	fn.add =function(x,y,val){
-		this.arr[x+y*this.row]+=val;
+		this.arr[y+x*this.row]+=val;
 	}
 }(window)
 
@@ -77,17 +79,21 @@
 		}
 	}
 	
-	fn.predict = function(xs,ys){
-		var n_out = this.n_out;
-		var W =this.W;
+	fn.predict = function(xs){
+		var n_out = this.n_out,
+			n_in = this.n_in;
+		var W =this.W
+			,b =this.b;
+		var ys = makeArray(n_out);
 		for(var i = 0;i<n_out;i++){
 			ys[i]=0;
 			for(var j = 0;j<n_in;j++){
-				ys[i]+=W.get(i,j)*x[j];
+				ys[i]+=W.get(i,j)*xs[j];
 			}
 			ys[i]+=b[i];
 		}
 		softmax(ys);
+		return ys;
 	}
 	
 	function softmax(arr){
