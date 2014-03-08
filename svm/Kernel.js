@@ -13,7 +13,7 @@ define(
 					}
 				},
 				polyn:function(p){
-					return function(vi,vj,p){
+					return function(vi,vj){
 						var length = vi.length;
 						var sum = 0.0;
 						for(var i = 0;i<length;i++){
